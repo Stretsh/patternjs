@@ -1,0 +1,30 @@
+{
+  "name": "patternjs",
+  "version": "0.1.0",
+  "description": "Human-readable pattern-matching system",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "keywords": ["pattern", "regex", "text-matching", "human-readable"],
+  "author": "Rehuel",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prettier": "^3.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "extensionsToTreatAsEsm": [".js"]
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "printWidth": 80
+  }
+}
