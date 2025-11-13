@@ -13,11 +13,7 @@ The system should reflect that natural sequential logic. Instead of dense symbol
 Example (conceptual):
 
 ```js
-pattern()
-   .startOfLine()
-   .literal('user_')
-   .digits().oneOrMore()
-   .endOfLine()
+pattern().startOfLine().literal('user_').digits().oneOrMore().endOfLine()
 ```
 
 ### Principles
@@ -32,13 +28,12 @@ pattern()
 
 **Phase 1 — Regex Interface:**  
 Build the API that converts a readable pattern sequence into a valid regular expression and executes it.
-    
+
 **Phase 2 — Native Matcher:**  
 Replace regex compilation with a purpose-built pattern engine implemented in pure JavaScript.
-    
+
 **Phase 3 — Universal Syntax:**  
 Define a language-neutral format (e.g., YAML/Markdown form) so patterns can be shared, parsed, and ported.
-    
 
 ### Design Vocabulary (initial)
 
