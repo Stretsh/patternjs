@@ -11,11 +11,17 @@ export const quantifiers = {
     return groupIfNeeded(token) + '*'
   },
 
-  exactly(token, n) {
+  repeat(token, n) {
     return groupIfNeeded(token) + `{${n}}`
   },
 }
 
 function groupIfNeeded(token) {
-  return token.length > 1 && !token.startsWith('(') ? `(?:${token})` : token
+  const single = /^\\[dwsn]$/
+  if (!single.test(token)) {
+    if (!token.startsWith('(?:')) {
+      return `(?:${token})`
+    }
+  }
+  return token
 }

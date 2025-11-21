@@ -1,4 +1,6 @@
 import { atoms } from './atoms.js'
+import { boundaries } from './boundaries.js'
+import { combinators } from './combinators.js'
 import { quantifiers } from './quantifiers.js'
 
 export class Pattern {
@@ -57,8 +59,71 @@ export class Pattern {
     return this._applyQuantifier(quantifiers.zeroOrMore)
   }
 
-  exactly(n) {
-    return this._applyQuantifier(quantifiers.exactly, n)
+  repeat(n) {
+    return this._applyQuantifier(quantifiers.repeat, n)
+  }
+
+
+
+  // ----- Boundaries -----
+  startOfLine() {
+    this.tokens.push(boundaries.startOfLine())
+    return this
+  }
+
+  endOfLine() {
+    this.tokens.push(boundaries.endOfLine())
+    return this
+  }
+
+  wordBoundary() {
+    this.tokens.push(boundaries.wordBoundary())
+    return this
+  }
+
+  whole() {
+    if (this.tokens.length === 0) {
+      throw new Error('No token to enforce with whole()')
+    }
+
+    const token = this.tokens.pop()
+
+    const wrapped = `(?:^|\\s)(?:${token})(?:\\s|$)`
+    this.tokens.push(wrapped)
+    return this
+  }
+
+  // ----- Combinators -----
+  then() {
+    return this
+  }
+
+  before(other) {
+    const regex = other instanceof Pattern ? other.toRegexString() : other
+    this.tokens.push(combinators.before(regex))
+    return this
+  }
+
+  after(other) {
+    const regex = other instanceof Pattern ? other.toRegexString() : other
+    this.tokens.push(combinators.after(regex))
+    return this
+  }
+
+  // ----- Flags -----
+  caseInsensitive() {
+    if (!this.flags.includes('i')) this.flags += 'i'
+    return this
+  }
+
+  multiline() {
+    if (!this.flags.includes('m')) this.flags += 'm'
+    return this
+  }
+
+  global() {
+    if (!this.flags.includes('g')) this.flags += 'g'
+    return this
   }
 
   // ----- Compilation -----

@@ -8,8 +8,9 @@ export const atoms = {
     return '\\w'
   },
 
-  digit() {
-    return '\\d'
+  digit(count = 1) {
+    if (count === 1) return '\\d'
+    return Array(count).fill('\\d').join('')
   },
 
   space() {

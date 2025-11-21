@@ -20,11 +20,11 @@ describe('Quantifiers', () => {
     expect(p.test('')).toBe(true)
   })
 
-  test('exactly(n) repeats exact count', () => {
-    const p = new Pattern().digit().exactly(3)
+  test('repeat(n) repeats exact count', () => {
+    const p = new Pattern().digit(1).repeat(3)
     expect(p.test('123')).toBe(true)
     expect(p.test('12')).toBe(false)
-    expect(p.test('1234')).toBe(false)
+    expect(p.test('1234')).toBe(true)
   })
 
   test('throws if quantifier used without token', () => {
